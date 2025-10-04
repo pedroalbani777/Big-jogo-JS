@@ -1,18 +1,27 @@
 let campoChute = document.getElementById("campoChute");
 let botaoChutar = document.getElementById("botaoChutar");
 let mensagem = document.getElementById("mensagem");
+let secaoChutes = document.getElementById ("secaoChutes");
+let ListaDeChutes = document.getElementById ("ListaDeChutes");
 
 
 let numeroSecreto;
 
+var chutesDoUsuario = [ ];
+
 function iniciarjogo(){
     numeroSecreto = Math.floor(Math.random() * 100) + 1;
+
+    chutesDoUsuario = [ ];
 
     mensagem.textContent = "";
     campoChute.value = "";
     botaoChutar.textContent = "Chutar!";
     
     campoChute.disabled = false;
+
+    secaoChutes.style.display = 'none';
+    ListaDeChutes.textContent = ' ';
     campoChute.focus();
     botaoChutar.removeEventListener('click', iniciarjogo);
     botaoChutar.addEventListener("click", verificarChute);
@@ -31,8 +40,14 @@ function verificarChute() {
         return;
     }
 
+    chutesDoUsuario.push(chute);
+
+    secaoChutes.style.display = 'block';
+
+    ListaDeChutes.textContent = chutesDoUsuario.join(', ');
+
     if (chute === numeroSecreto){
-        mensagem.textContent = " parabens voce acerto essa merda, cagado! " + numeroSecreto + "!"
+        mensagem.textContent = " parabens voce acerto essa merda, seu cagado " + numeroSecreto + "!"
         mensagem.style.color = '#17ff02ff'
         finalizarJogo ();
     } else if (chute < numeroSecreto) {
@@ -54,5 +69,15 @@ function finalizarJogo () {
 
     botaoChutar.removeEventListener('click', verificarChute);
     botaoChutar.addEventListener('click' , iniciarjogo);
+
 }
+
+campoChute.addEventListener('keypress', function(evento){
+    if (evento.key === 'Enter'){
+        verificarChute();
+    
+ }
+});
+
+
 iniciarjogo();

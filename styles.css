@@ -64,11 +64,11 @@ p{
     padding: 14px 24px;
     border: none;
     border-radius: 6px;
-    cursor: crosshair ;
+    cursor: wait;
     transition: background-color 0.3s;
 }
 
 #botaoChutar:hover {
 background-color: #515854;
 
-}
+}   
